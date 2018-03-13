@@ -1,23 +1,22 @@
-import { FETCH_USER_SUCCESS, FETCH_USER_ERROR } from '../actions/types';
+import {FETCH_REVIEW_DATA_SUCCESS, FETCH_REVIEW_DATA_FAILURE} from '../actions/types';
 
 const initialState = {
-  userData: null,
+  reviewData: [],
   err: false
 }
-
 
 export default function(state = initialState, action) {
 
   switch (action.type) {
-    case FETCH_USER_SUCCESS:
+    case FETCH_REVIEW_DATA_SUCCESS:
       return {
         ...state,
-        userData: action.payload || false
+        reviewData: action.payload
       }
-    case FETCH_USER_ERROR:
+    case FETCH_REVIEW_DATA_FAILURE:
       return {
         ...state,
-        userData: action.payload,
+        reviewData: action.payload,
         err: true
       }
     

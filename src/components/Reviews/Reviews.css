@@ -1,3 +1,5 @@
-.reviews{
-  margin: 0 auto;
+
+.review-item{
+  display: block;
+  margin: 25px;
 }

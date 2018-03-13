@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import './Nav.css';
 import logo from '../../images/logo.svg'
+import {Link} from 'react-router-dom'
 
 class Nav extends Component {
   renderAuthStatus() {
@@ -19,9 +20,11 @@ class Nav extends Component {
     return (
       <ul className="nav">
         <li>
-          <a className="nav-item" href="#home">
+          <Link to={this.props.auth ? '/reviews' : '/'} 
+          className="nav-item" 
+          >
             <img className="logo" src={logo} alt="soccer silhouette"></img>
-          </a>
+          </Link>
         </li>
         <li>
           <a className="nav-item" href="#about">
@@ -35,7 +38,7 @@ class Nav extends Component {
 }
 
 function mapStateToProps(state) {
-  return { auth: state.auth };
+  return { auth: state.auth.userData };
 }
 
 export default connect(mapStateToProps)(Nav);

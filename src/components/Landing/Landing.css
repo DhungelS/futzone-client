@@ -33,3 +33,9 @@ background-color: #6A5BC7;
   clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
   background: linear-gradient(to right, #11998e, #38ef7d);
 }
+
+.info {
+background-color: #6A5CC2;
+font-size: 25px;
+color: white;
+}

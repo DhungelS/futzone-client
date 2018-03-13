@@ -24,6 +24,11 @@ li .nav-item:hover:not(.active) {
   background-color: #6A5ACD;
 }
 
-ul .right {
+.right {
  float: right;
+}
+
+a .logo { /* whatever the fixed height of the bar is */
+  height: 15px;
+  display: block;
 }

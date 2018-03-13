@@ -1,33 +1,34 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import './Nav.css';
+import logo from '../../images/logo.svg'
 
 class Nav extends Component {
   renderAuthStatus() {
     switch (this.props.auth) {
       case null:
-        return 'Still deciding';
+        return;
       case false: 
-        return 'logged out';
+        return (<li className="right"><a className="nav-item active" href="/auth/google">Login With Google</a></li>);
       default:
-        return 'logged in';
-  }
+        return (<li className="right"><a className="nav-item active" href="api/logout">Logout</a></li>);
 }
+  }
 
   render() {
     return (
       <ul className="nav">
         <li>
           <a className="nav-item" href="#home">
-            Home
+            <img className="logo" src={logo} alt="soccer silhouette"></img>
           </a>
         </li>
         <li>
           <a className="nav-item" href="#about">
-            About
+            My Reviews
           </a>
         </li>
-        <li className="right">{this.renderAuthStatus()}</li>
+        {this.renderAuthStatus()}
       </ul>
     );
   }

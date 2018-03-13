@@ -4,10 +4,10 @@
   "private": true,
   "proxy": {
     "/auth/google": {
-      "target": "https://futzone.herokuapp.com/"
+      "target": "http://localhost:5000"
     },
     "/api/*": {
-      "target": "https://futzone.herokuapp.com/"
+      "target": "http://localhost:5000"
     }
   },
   "dependencies": {

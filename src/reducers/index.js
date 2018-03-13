@@ -5,5 +5,5 @@ import reviewReducer from './reviewReducer';
 export default combineReducers({
   auth: authReducer,
   review: reviewReducer,
-  
+  postReview: reviewReducer
 });

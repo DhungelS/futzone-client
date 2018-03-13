@@ -1,4 +1,5 @@
 import axios from 'axios';
+
 import {FETCH_USER_SUCCESS, FETCH_USER_ERROR, FETCH_REVIEW_DATA_SUCCESS, FETCH_REVIEW_DATA_FAILURE} from './types';
 export const fetchUser = () => dispatch => {
   axios
@@ -10,6 +11,13 @@ export const fetchUser = () => dispatch => {
 export const fetchReviewData = () => dispatch => {
   axios
   .get('/api/reviews')
+  .then(res => dispatch({type: FETCH_REVIEW_DATA_SUCCESS, payload: res.data}))
+  .catch(err => dispatch({type: FETCH_REVIEW_DATA_FAILURE, payload: err}))
+}
+
+export const postReviewData = (values) => dispatch => {
+  axios
+  .post('/api/reviews', values)
   .then(res => dispatch({type: FETCH_REVIEW_DATA_SUCCESS, payload: res.data}))
   .catch(err => dispatch({type: FETCH_REVIEW_DATA_FAILURE, payload: err}))
 }

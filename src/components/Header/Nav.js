@@ -28,7 +28,7 @@ class Nav extends Component {
         </li>
         <li>
           <a className="nav-item" href="#about">
-            My Reviews
+            My Review
           </a>
         </li>
         {this.renderAuthStatus()}

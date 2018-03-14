@@ -17,8 +17,7 @@ export default function(state = initialState, action) {
     case FETCH_USER_ERROR:
       return {
         ...state,
-        userData: action.payload,
-        err: true
+        err: action.payload
       }
     
     default:

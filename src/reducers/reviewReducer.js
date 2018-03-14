@@ -1,4 +1,4 @@
-import {FETCH_REVIEW_DATA_SUCCESS, FETCH_REVIEW_DATA_FAILURE} from '../actions/types';
+import {FETCH_REVIEW_DATA_SUCCESS, FETCH_REVIEW_DATA_FAILURE, CREATE_REVIEW_DATA_SUCCESS, CREATE_REVIEW_DATA_FAILURE} from '../actions/types';
 
 const initialState = {
   reviewData: [],
@@ -6,7 +6,7 @@ const initialState = {
 }
 
 export default function(state = initialState, action) {
-console.log(action)
+
   switch (action.type) {
     case FETCH_REVIEW_DATA_SUCCESS:
       return {
@@ -16,8 +16,17 @@ console.log(action)
     case FETCH_REVIEW_DATA_FAILURE:
       return {
         ...state,
-        reviewData: action.payload,
-        err: true
+        err: action.payload
+      }
+      case CREATE_REVIEW_DATA_SUCCESS:
+      return {
+        ...state,
+        reviewData: [...state.reviewData, action.payload]
+      }
+      case CREATE_REVIEW_DATA_FAILURE:
+      return {
+        ...state,
+        err: action.payload
       }
     
     default:

@@ -17,7 +17,8 @@ export class Reviews extends Component {
     this.props.fetchReviewData();
   }
 
-  reviewPostHandler(event) {
+  reviewPostHandler = (event) => {
+    console.log(event);
     event.preventDefault();
     this.props.postReviewData({
       moment: this.state.moment,
@@ -51,7 +52,7 @@ export class Reviews extends Component {
       <div className="reviews">
         <h1>Previous Reviews</h1>
         <ul className="review-list">{reviews}</ul>
-        <form className="review-form" onSubmit={e => this.reviewPostHandler(e)}>
+        <form className="review-form" onSubmit={this.reviewPostHandler}>
           <textarea
             value={this.state.moment}
             onChange={e => this.handleMomentInput(e)}

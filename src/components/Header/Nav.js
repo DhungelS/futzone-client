@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import './Nav.css';
-import logo from '../../images/logo.svg'
-import {Link} from 'react-router-dom'
+import logo from '../../images/logo.svg';
+import {Link} from 'react-router-dom';
 
 class Nav extends Component {
   renderAuthStatus() {
@@ -27,9 +27,9 @@ class Nav extends Component {
           </Link>
         </li>
         <li>
-          <a className="nav-item" href="#about">
-            My Review
-          </a>
+          <Link to='/fixtures'className="nav-item">
+            Fixtures
+          </Link>
         </li>
         {this.renderAuthStatus()}
       </ul>

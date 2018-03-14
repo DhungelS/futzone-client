@@ -7,9 +7,7 @@ export default function Banner() {
       <div className="banner">
         <h1 className="heading-text">Futzone</h1>
       </div>
-  
       <div className="info">
-
       <p>Score, highlights, and much more on the latest matches.</p>
       </div>
     </div>

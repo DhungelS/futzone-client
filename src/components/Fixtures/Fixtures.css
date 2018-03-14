@@ -1,9 +1,29 @@
 .fixtures {
- display: flex;
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
 }
 
-.teams, .leagues{
+.list {
+  display: flex;
+  flex-direction: row;
+  margin-top: 50px;
+}
+
+.leagues-list, .teams-list {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  align-items: center;
+}
+
+.leagues-list {
+  background-color: #c3c3c3;
+}
+
+.team, .league {
   margin-top: 5px;
   margin-bottom: 5px;
+  height: 40px;
 }
 

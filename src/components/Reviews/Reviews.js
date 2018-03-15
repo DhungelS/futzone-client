@@ -18,7 +18,6 @@ export class Reviews extends Component {
   }
 
   reviewPostHandler = (event) => {
-    console.log(event);
     event.preventDefault();
     this.props.postReviewData({
       moment: this.state.moment,

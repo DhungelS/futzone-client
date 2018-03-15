@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import Modal from 'react-responsive-modal';
 
+import Matches from './Matches/Matches'
+import Teams from './Teams/Teams'
 import * as actions from '../../actions';
 import './Fixtures.css';
 
@@ -11,9 +14,21 @@ export class Fixtures extends Component {
       showLeagues: true,
       showTeams: false,
       showMatches: false,
-      selectedLeague: ''
+      selectedLeague: '',
+      open: false,
+      moment: '',
+      rating: 1
     };
   }
+
+  onOpenModal = () => {
+    this.setState({ open: true });
+    this.props.fetchReviewData();
+  };
+ 
+  onCloseModal = () => {
+    this.setState({ open: false });
+  };
 
   componentDidMount() {
     this.props.getLeagues();
@@ -29,14 +44,23 @@ export class Fixtures extends Component {
     });
   }
 
+  handleTeamSelect(link){
+    this.setState({
+      showMatches: true
+    }, () => {
+      this.props.getMatches(link)
+    })
+  }
+
   render() {
+
     return (
       (
         <div className="fixtures">
           <h1>Leagues</h1>
 
           <div className="list">
-            <div className="leagues-list">
+            <ul className="leagues-list">
               {this.props.leagues.map((league, index) => (
                 <li
                   key={league.id}
@@ -48,15 +72,33 @@ export class Fixtures extends Component {
                   <a>{league.caption}</a>
                 </li>
               ))}
-            </div>
-            <div className="teams-list">
+            </ul>
+           
+
+            <ul className="match-list">
+                {this.props.matches.map((match, index) => (
+                  <div>
+                 <Matches key={index} match={match} onOpenModal={this.onOpenModal}/>
+                 <Modal classNames={{ overlay: 'custom-overlay', modal: 'custom-modal' }} open={this.state.open} onClose={this.onCloseModal} little>
+                 <h2>Simple centered modal</h2>
+                 <h2>Simple centered modal</h2>
+                 <h2>Simple centered modal</h2>
+                 <h2>Simple centered modal</h2>
+
+               </Modal>
+               </div>
+                ))}
+              </ul>
+
+
+              
+              <ul className="teams-list">
               {this.state.showTeams && this.props.teams[this.state.selectedLeague] &&
                 this.props.teams[this.state.selectedLeague].map((team, index) => (
-                  <li key={index} className="team">
-                    {team.name}
-                  </li>
+                  <Teams key={index} team={team} handleTeamSelect={(link) => this.handleTeamSelect(link)}/>
                 ))}
-            </div>
+            </ul>
+
           </div>
         </div>
       )
@@ -67,6 +109,8 @@ export class Fixtures extends Component {
 const mapStateToProps = state => ({
   leagues: state.soccerData.leagueData,
   teams: state.soccerData.teamData,
+  matches: state.soccerData.matchData,
+  reviews: state.review.reviewData
 });
 
 export default connect(mapStateToProps, actions)(Fixtures);

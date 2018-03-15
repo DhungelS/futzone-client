@@ -7,9 +7,6 @@ import {
   FETCH_REVIEW_DATA_FAILURE,
   CREATE_REVIEW_DATA_SUCCESS,
   CREATE_REVIEW_DATA_FAILURE,
-  SOCCER_DATA_SUCCESS,
-  SOCCER_DATA_FAILURE,
-  soccer_data_request,
 } from './types';
 
 const BASE_URL = 'https://api.football-data.org/v1';
@@ -75,3 +72,26 @@ export const getTeams = (url, leagueId) => (dispatch, getState) => {
     })
     .catch(err => dispatch({ type: 'GET_TEAMS_ERROR', payload: err }));
 };
+
+export const getMatches = (url) => (dispatch) => {
+  dispatch({ type: 'GET_MATCHES_REQUEST' });
+  
+  axios 
+    .get(url, {
+      headers: { 'X-Auth-Token': '515c6488f516424d97ce5b2c4090d286' },
+    })
+    .then(res => {
+      console.log(res);
+      return dispatch(getFinishedMatches(res.data.fixtures))
+    })
+    .catch(err => dispatch({type: 'GET_MATCHES_ERROR', payload: err}))
+}
+
+const getFinishedMatches = (data) => {
+  const finished = data.filter(el => el.status === "FINISHED")
+  const last4Ele = finished.slice(finished.length - 4, finished.length)
+  return {
+    type: "GET_MATCHES_SUCCESS", 
+    payload: last4Ele
+  }
+}

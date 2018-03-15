@@ -20,15 +20,15 @@ class Nav extends Component {
     return (
       <ul className="nav">
         <li>
-          <Link to={this.props.auth ? '/reviews' : '/'} 
+          <Link to={this.props.auth ? '/fixtures' : '/'} 
           className="nav-item" 
           >
             <img className="logo" src={logo} alt="soccer silhouette"></img>
           </Link>
         </li>
         <li>
-          <Link to='/fixtures'className="nav-item">
-            Fixtures
+          <Link to='/'className="nav-item">
+            Home
           </Link>
         </li>
         {this.renderAuthStatus()}

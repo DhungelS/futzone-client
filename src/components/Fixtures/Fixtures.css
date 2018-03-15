@@ -59,3 +59,8 @@ margin: 25px;
   height: 95%;
   width: 100%;
 }
+
+.highlights{
+  display: inline-block;
+  margin: 0 auto;
+}

@@ -44,6 +44,12 @@
   color: yellow;
 }
 
+.crest{
+  width: 40px;
+  height: 40px;
+  margin: 5px;
+}
+
 .modal {
 padding: 25px;
 margin: 25px;

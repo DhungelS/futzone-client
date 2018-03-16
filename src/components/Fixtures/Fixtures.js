@@ -4,7 +4,7 @@ import Modal from 'react-responsive-modal';
 
 import Matches from './Matches/Matches';
 import Teams from './Teams/Teams';
-import Highlights from './Highlights/Highlights'
+import Highlights from './Highlights/Highlights';
 import * as actions from '../../actions';
 import './Fixtures.css';
 
@@ -16,19 +16,28 @@ export class Fixtures extends Component {
       showTeams: false,
       showMatches: false,
       selectedLeague: '',
-      open: false,
+      openFirstModal: false,
+      openSecondModal: false,
       moment: '',
       rating: 1
     };
   }
 
-  onOpenModal = () => {
-    this.setState({ open: true });
+  onOpenFirstModal = () => {
+    this.setState({ openFirstModal: true });
     this.props.fetchReviewData();
   };
 
-  onCloseModal = () => {
-    this.setState({ open: false });
+  onCloseFirstModal = () => {
+    this.setState({ openFirstModal: false });
+  };
+
+  onOpenSecondModal = () => {
+    this.setState({ openSecondModal: true });
+  };
+
+  onCloseSecondModal = () => {
+    this.setState({ openSecondModal: false });
   };
 
   componentDidMount() {
@@ -80,11 +89,10 @@ export class Fixtures extends Component {
   }
 
   render() {
-
     const reviews = this.props.reviews.map((review, index) => {
       return (
         <li className="review-item" key={index}>
-         {review.match} {review.rating} {review.moment} 
+          {review.match} {review.rating} {review.moment}
         </li>
       );
     });
@@ -114,24 +122,30 @@ export class Fixtures extends Component {
                 <Matches
                   key={index}
                   match={match}
-                  onOpenModal={this.onOpenModal}
+                  onOpenFirstModal={this.onOpenFirstModal}
+                  onOpenSecondModal={this.onOpenSecondModal}
                 />
+
                 <Modal
                   classNames={{
                     overlay: 'custom-overlay',
                     modal: 'custom-modal'
                   }}
-                  open={this.state.open}
-                  onClose={this.onCloseModal}
+                  open={this.state.openFirstModal}
+                  onClose={this.onCloseFirstModal}
                   little
                 >
                   <div>
                     <h1>Previous Reviews</h1>
-                    <ul className="review-list">
-                    {reviews}</ul>
+                    <ul className="review-list">{reviews}</ul>
                     <form
                       className="review-form"
-                      onSubmit={(e) => this.reviewPostHandler(e, ` ${match.homeTeamName} VS. ${match.awayTeamName}`)}
+                      onSubmit={e =>
+                        this.reviewPostHandler(
+                          e,
+                          ` ${match.homeTeamName} VS. ${match.awayTeamName}`
+                        )
+                      }
                     >
                       <textarea
                         value={this.state.moment}
@@ -150,8 +164,24 @@ export class Fixtures extends Component {
                       </select>
                       <input type="submit" />
                     </form>
-                    <Highlights matchSelected={` ${match.homeTeamName} VS. ${match.awayTeamName}`}/>
+                    <Highlights
+                      matchSelected={` ${match.homeTeamName} vs ${
+                        match.awayTeamName
+                      }`}
+                    />
                   </div>
+                </Modal>
+
+                <Modal
+                  classNames={{
+                    overlay: 'custom-overlay',
+                    modal: 'custom-modal'
+                  }}
+                  open={this.state.openSecondModal}
+                  onClose={this.onCloseSecondModal}
+                  little
+                >
+                  This is the second modal
                 </Modal>
               </div>
             ))}

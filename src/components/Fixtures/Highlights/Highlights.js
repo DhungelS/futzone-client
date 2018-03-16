@@ -3,51 +3,46 @@ import { connect } from 'react-redux';
 import * as actions from '../../../actions';
 
 export class Highlights extends Component {
-
- 
-
-  componentDidMount() {
-    this.props.getHighlightVids(this.props.matchSelected)
-
+  generateHighlightsOnModalClick() {
+    this.props.getHighlightVids(this.props.matchSelected);
   }
-  
 
   resultsEle() {
-    if(this.props.highlights){
+    if (this.props.highlights) {
+      const thumbnails = this.props.highlights.map(vid => {
+        return vid.snippet.thumbnails.medium.url;
+      });
+      const videoIds = this.props.highlights.map(vid => {
+        return vid.id.videoId;
+      });
 
-    const thumbnails = this.props.highlights.map(vid => {
-      return vid.snippet.thumbnails.medium.url;
-    });
-    const videoIds = this.props.highlights.map(vid => {
-      return vid.id.videoId;
-    });
-
-    const videos = thumbnails.map((thumbnail=thumbnails, index) => {
-      return (<li className="highlights"><a href={'https://www.youtube.com/watch?v='+ videoIds[index]}><img src = {thumbnail} alt = 'youtube thumbnail'/></a></li>)
-      
-    });
-    return videos;
-
-    
+      const videos = thumbnails.map((thumbnail = thumbnails, index) => {
+        return (
+          <li className="highlights">
+            <a href={'https://www.youtube.com/watch?v=' + videoIds[index]}>
+              <img src={thumbnail} alt="youtube thumbnail" />
+            </a>
+          </li>
+        );
+      });
+      return videos;
+    }
   }
- 
-  }
-
 
   render() {
-
-
-    return(
+    return (
       <div>
-      {this.resultsEle()}
-      <h1>Hello</h1>
+        <ul
+          generateHighlightsOnModalClick={() =>
+            this.generateHighlightsOnModalClick()
+          }
+        >
+          {this.resultsEle()}
+        </ul>
       </div>
-    )
-    
+    );
   }
- 
 }
-
 
 const mapStateToProps = state => ({
   highlights: state.highlights.highlightVids

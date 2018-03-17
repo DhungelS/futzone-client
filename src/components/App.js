@@ -5,7 +5,6 @@ import * as actions from '../actions'
 
 import Header from './Header/Nav';
 import Banner from './Landing/Landing';
-import Reviews from './Reviews/Reviews';
 import Fixtures from './Fixtures/Fixtures';
 
 
@@ -24,7 +23,7 @@ class App extends Component {
           <div>
             <Header />
             <Route exact path="/" component={Banner} />
-            <Route exact path="/reviews" component={Reviews} />
+            {/* <Route exact path="/reviews" component={Reviews} /> */}
             <Route path="/Fixtures" component={Fixtures} />
           </div>
         </BrowserRouter>

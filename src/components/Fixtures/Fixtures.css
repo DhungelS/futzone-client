@@ -10,7 +10,9 @@
   margin-top: 50px;
 }
 
-.leagues-list, .teams-list, .match-list {
+.leagues-list,
+.teams-list,
+.match-list {
   display: flex;
   flex-direction: column;
   flex: 1;
@@ -22,38 +24,55 @@
   background-color: #c3c3c3;
 }
 
-.teams-list{
-  background-color: #6A5ACD;
+.teams-list {
+  background-color: #6a5acd;
 }
 
 .match-list {
   background: linear-gradient(to right, #11998e, #38ef7d);
 }
 
-.team, .league, .match {
+.team,
+.league,
+.match {
   margin-top: 5px;
   margin-bottom: 5px;
   color: white;
-  border: 1px solid black;
   text-align: center;
   font-size: 18px;
-  padding: 
+  padding: 5px;
+  cursor: pointer; 
 }
 
-.team:hover, .league:hover, .match:hover {
+.league {
+  color: black;
+}
+.match {
+  background-color: #c3c3c3;
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+  transition: 0.3s;
+  color: black;
+}
+
+.match:hover {
+  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+}
+
+.team:hover,
+.league:hover,
+.match:hover {
   color: yellow;
 }
 
-.crest{
+.crest {
   width: 40px;
   height: 40px;
   margin: 5px;
 }
 
 .modal {
-padding: 25px;
-margin: 25px;
-
+  padding: 25px;
+  margin: 25px;
 }
 
 .custom-overlay {
@@ -66,7 +85,11 @@ margin: 25px;
   width: 100%;
 }
 
-.highlights{
+.highlights {
   display: inline-block;
+}
 
+.review-item{
+  display: block;
+  margin: 25px;
 }

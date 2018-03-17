@@ -28,7 +28,11 @@ export default function(state = initialState, action) {
         ...state,
         err: action.payload
       }
-    
+      case 'DELETE_REVIEW_ITEM_SUCCESS':
+      return {
+        ...state,
+        
+      }
     default:
       return state;
   }

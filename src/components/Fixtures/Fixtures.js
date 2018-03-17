@@ -4,9 +4,12 @@ import Modal from 'react-responsive-modal';
 
 import Matches from './Matches/Matches';
 import Teams from './Teams/Teams';
+import Search from './Search'
 import Highlights from './Highlights/Highlights';
 import * as actions from '../../actions';
 import './Fixtures.css';
+
+
 
 export class Fixtures extends Component {
   constructor(props) {
@@ -19,9 +22,14 @@ export class Fixtures extends Component {
       openFirstModal: false,
       openSecondModal: false,
       moment: '',
-      rating: 1
+      rating: 1,
+      term: '',
+      searchs: []
     };
+    
   }
+
+
 
   onOpenFirstModal = () => {
     this.setState({ openFirstModal: true });
@@ -32,8 +40,9 @@ export class Fixtures extends Component {
     this.setState({ openFirstModal: false });
   };
 
-  onOpenSecondModal = () => {
+  onOpenSecondModal = (highlightVids) => {
     this.setState({ openSecondModal: true });
+    this.props.getHighlightVids(highlightVids)
   };
 
   onCloseSecondModal = () => {
@@ -41,7 +50,7 @@ export class Fixtures extends Component {
   };
 
   componentDidMount() {
-    this.props.getLeagues();
+    this.props.getLeagues()
   }
 
   handleLeagueSelect(link, id) {
@@ -88,22 +97,39 @@ export class Fixtures extends Component {
     });
   }
 
+
+  _searchAndFilter = (searchTerm, itemtoFilter) => {
+    
+    const searchs = itemtoFilter.filter(item => item.includes(searchTerm));
+    console.log(searchs)
+    this.setState({
+      term: searchTerm,
+      searchs
+    });
+  };
+
+
+
   render() {
     const reviews = this.props.reviews.map((review, index) => {
       return (
-        <li className="review-item" key={index}>
+        <li className="review-item" key={review._id}>
           {review.match} {review.rating} {review.moment}
+          <button onClick={() => this.props.deleteReviewItem(review._id)}>del</button>
         </li>
       );
     });
 
+    const captionArr = this.props.leagues.map(((league, index) => league.caption)
+  )
     return (
       <div className="fixtures">
         <h1>Leagues</h1>
-
+        <Search searchAndFilter= {((e) => this._searchAndFilter(e.target.value,captionArr))} value={this.state.term} />
         <div className="list">
           <ul className="leagues-list">
-            {this.props.leagues.map((league, index) => (
+            {this.state.searchs.map((league, index) => (
+              
               <li
                 key={league.id}
                 onClick={() =>
@@ -111,8 +137,9 @@ export class Fixtures extends Component {
                 }
                 className="league"
               >
-                <a>{league.caption}</a>
+                <a>{league}</a>
               </li>
+              
             ))}
           </ul>
 
@@ -123,7 +150,9 @@ export class Fixtures extends Component {
                   key={index}
                   match={match}
                   onOpenFirstModal={this.onOpenFirstModal}
-                  onOpenSecondModal={this.onOpenSecondModal}
+                  onOpenSecondModal={() => this.onOpenSecondModal(` ${match.homeTeamName} vs ${
+                    match.awayTeamName}
+                  `)}
                 />
 
                 <Modal
@@ -164,11 +193,6 @@ export class Fixtures extends Component {
                       </select>
                       <input type="submit" />
                     </form>
-                    <Highlights
-                      matchSelected={` ${match.homeTeamName} vs ${
-                        match.awayTeamName
-                      }`}
-                    />
                   </div>
                 </Modal>
 
@@ -181,7 +205,12 @@ export class Fixtures extends Component {
                   onClose={this.onCloseSecondModal}
                   little
                 >
+                  <Highlights
+                      matchSelected={` ${match.homeTeamName} vs ${
+                        match.awayTeamName
+                      }`}
                   This is the second modal
+                  />
                 </Modal>
               </div>
             ))}

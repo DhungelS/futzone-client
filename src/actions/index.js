@@ -112,3 +112,12 @@ export const getHighlightVids = match => dispatch => {
     return dispatch({type: 'GET_HIGHLIGHTS_ERROR', payload: err})
   })
 };
+
+export const deleteReviewItem = (id) => dispatch => {
+  axios
+    .delete(`/api/reviews/${id}`)
+    .then(res =>
+      dispatch({ type: 'DELETE_REVIEW_ITEM_SUCCESS', payload: res.data })
+    )
+    .catch(err => dispatch({ type: 'DELETE_REVIEW_ITEM_FAILURE', payload: err }));
+};

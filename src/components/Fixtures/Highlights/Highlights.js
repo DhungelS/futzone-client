@@ -3,9 +3,8 @@ import { connect } from 'react-redux';
 import * as actions from '../../../actions';
 
 export class Highlights extends Component {
-  generateHighlightsOnModalClick() {
-    this.props.getHighlightVids(this.props.matchSelected);
-  }
+  
+
 
   resultsEle() {
     if (this.props.highlights) {
@@ -18,7 +17,7 @@ export class Highlights extends Component {
 
       const videos = thumbnails.map((thumbnail = thumbnails, index) => {
         return (
-          <li className="highlights">
+          <li  className="highlights">
             <a href={'https://www.youtube.com/watch?v=' + videoIds[index]}>
               <img src={thumbnail} alt="youtube thumbnail" />
             </a>
@@ -32,11 +31,7 @@ export class Highlights extends Component {
   render() {
     return (
       <div>
-        <ul
-          generateHighlightsOnModalClick={() =>
-            this.generateHighlightsOnModalClick()
-          }
-        >
+        <ul>
           {this.resultsEle()}
         </ul>
       </div>

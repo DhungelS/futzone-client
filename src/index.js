@@ -14,15 +14,12 @@ const middlwares = [createLogger(), thunk];
 const store = createStore(
   reducers,
   {},
-  compose(
-    applyMiddleware(...middlwares),
-    window.devToolsExtension ? window.devToolsExtension() : f => f,
-  ),
+  applyMiddleware(...middlwares)
 );
 
 ReactDOM.render(
   <Provider store={store}>
     <App />
   </Provider>,
-  document.getElementById('root'),
+  document.getElementById('root')
 );

@@ -8,20 +8,17 @@ export class Highlights extends Component {
 
   resultsEle() {
     if (this.props.highlights) {
-      const thumbnails = this.props.highlights.map(vid => {
-        return vid.snippet.thumbnails.medium.url;
-      });
-      const videoIds = this.props.highlights.map(vid => {
-        return vid.id.videoId;
-      });
 
-      const videos = thumbnails.map((thumbnail = thumbnails, index) => {
+      const videos = this.props.highlights.map((highlight, index) => {
         return (
-          <li  className="highlights">
-            <a href={'https://www.youtube.com/watch?v=' + videoIds[index]}>
-              <img src={thumbnail} alt="youtube thumbnail" />
+     
+          <li key={index} className="highlights">
+            <a target="_blank" href={'https://www.youtube.com/watch?v=' + highlight.id.videoId}>
+              <img src={highlight.snippet.thumbnails.medium.url} alt="youtube thumbnail" />
             </a>
+            <h3>{highlight.snippet.title}</h3>
           </li>
+         
         );
       });
       return videos;

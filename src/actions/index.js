@@ -1,40 +1,32 @@
 import axios from 'axios';
 import {YOUTUBE_API_KEY, SOCCER_API_KEY} from'../keys'
 
-import {
-  FETCH_USER_SUCCESS,
-  FETCH_USER_ERROR,
-  FETCH_REVIEW_DATA_SUCCESS,
-  FETCH_REVIEW_DATA_FAILURE,
-  CREATE_REVIEW_DATA_SUCCESS,
-  CREATE_REVIEW_DATA_FAILURE
-} from './types';
 
 const BASE_URL = 'https://api.football-data.org/v1';
 
 export const fetchUser = () => dispatch => {
   axios
     .get('/api/current_user')
-    .then(res => dispatch({ type: FETCH_USER_SUCCESS, payload: res.data }))
-    .catch(err => dispatch({ type: FETCH_USER_ERROR, payload: err }));
+    .then(res => dispatch({ type: 'FETCH_USER_SUCCESS', payload: res.data }))
+    .catch(err => dispatch({ type: 'FETCH_USER_ERROR', payload: err }));
 };
 
 export const fetchReviewData = () => dispatch => {
   axios
     .get('/api/reviews')
     .then(res =>
-      dispatch({ type: FETCH_REVIEW_DATA_SUCCESS, payload: res.data })
+      dispatch({ type: 'FETCH_REVIEW_DATA_SUCCESS', payload: res.data })
     )
-    .catch(err => dispatch({ type: FETCH_REVIEW_DATA_FAILURE, payload: err }));
+    .catch(err => dispatch({ type: 'FETCH_REVIEW_DATA_FAILURE', payload: err }));
 };
 
 export const postReviewData = values => dispatch => {
   axios
     .post('/api/reviews', values)
     .then(res =>
-      dispatch({ type: CREATE_REVIEW_DATA_SUCCESS, payload: res.data })
+      dispatch({ type: 'CREATE_REVIEW_DATA_SUCCESS', payload: res.data })
     )
-    .catch(err => dispatch({ type: CREATE_REVIEW_DATA_FAILURE, payload: err }));
+    .catch(err => dispatch({ type:'CREATE_REVIEW_DATA_FAILURE', payload: err }));
 };
 
 export const getLeagues = () => dispatch => {
@@ -103,6 +95,7 @@ export const getHighlightVids = match => dispatch => {
       q: match,
       key: YOUTUBE_API_KEY,
       part: 'snippet',
+      maxResults: 4
     }
   })
   .then(res => {
